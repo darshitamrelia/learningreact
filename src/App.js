@@ -1,50 +1,60 @@
-// import Carousel from "./components/carousel";
-// import Header from "./components/Header";
-// import Product from "./components/Product";
-// import Formhandle from "./components/Formhandle";
-// import Usestate from "./components/Usestate";
-// import Profile from "./components/Profile";
-// import CocktailListing from "./components/CocktailListing";
-// import CocktailList from "./components/CocktailList";
-// import Cards from "./components/cards"
-// import Footer from "./components/Footer"
-import { Route, Routes } from "react-router-dom";
-import Home from "./components/Pages/Home";
-import About from "./components/Pages/About";
-import Support from "./components/Pages/Support";
-import Courses from "./components/Pages/Courses";
-import Nav from "./components/Nav";
-import CourseDetail from "./components/Pages/CourseDetail";
-import Coctail from "./components/Pages/Coctail";
-import CocktailDetail from "./components/Pages/CocktailDetail";
+import React, { useEffect, useState } from "react";
+
+const url = `https://course-api.com/react-tabs-project`;
+
 function App() {
+  const [loading, setLoading] = useState(true);
+  const [jobs, setJobs] = useState([]);
+  const [value, setValue] = useState(0);
+
+  const fetchjobs = async () => {
+    const response = await fetch(url);
+    const newjobs = await response.json();
+    setJobs(newjobs);
+    setLoading(false);
+  };
+  useEffect(() => {
+    fetchjobs();
+  }, []);
+
+  if (loading) {
+    return (
+      <section>
+        <h1>Loading....</h1>
+      </section>
+    );
+  }
+  const { title, dates, duties, company, id } = jobs[value];
   return (
-    <>
-      <Nav />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/About" element={<About />} />
-        <Route path="/Support" element={<Support />} />
-        <Route path="/Courses" element={<Courses />} />
-        <Route path="/course/:id" element={<CourseDetail />} />
-        <Route path="/Coctail" element={<Coctail />} />
-        <Route path="/Coctail/:id" element={<CocktailDetail />} />
-      </Routes>
+    <section className="container">
+      <h1 className="text-center text-primary">Expreierance</h1>
+      <div className="underline"></div>
+      <div className="jobs-container">
+        <div className="btn-container">
+          {jobs.map((item, index) => {
+            return (
+              <button
+                className="btn btn-outline-success"
+                key={item.id}
+                onClick={() => setValue(index)}
+              >
+                {item.company}
+              </button>
+            );
+          })}
+        </div>
+      </div>
 
-      {/* <About /> */}
-      {/* <Home /> */}
-      {/* <Header />
-      <Carousel />
-      <Product /> */}
-      {/* <Formhandle /> */}
-      {/* <CocktailListing /> */}
-      {/* <CocktailList /> */}
-      {/* <Usestate /> */}
-      {/* <Profile /> */}
+      <>
+        <div key={id} className="col-6 col-md-3 mb-4 ">
+          <h3 src={company} alt=""></h3>
 
-      {/* <Cards />
-            <Footer /> */}
-    </>
+          <h3>Post: {title}</h3>
+          <p>{duties}</p>
+        </div>
+        <h2 className="btn btn-info">{dates}</h2>
+      </>
+    </section>
   );
 }
 
