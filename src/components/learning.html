@@ -27,38 +27,46 @@
 
         // -----------------Local Storage------------------------
 
-        const input = document.querySelector("input")
-        const h1Tag = document.querySelector("h1")
+        // const input = document.querySelector("input")
+        // const h1Tag = document.querySelector("h1")
 
-        function submitData() {
-            const inputValue = input.value;
-            h1Tag.innerHTML = inputValue
-            localStorage.setItem("username",inputValue)
-        }
+        // function submitData() {
+        //     const inputValue = input.value;
+        //     h1Tag.innerHTML = inputValue
+        //     localStorage.setItem("username",inputValue)
+        // }
 
-        function getLocalStorageData(){
-            const username = localStorage.getItem("username")
-            if(username){
-                h1Tag.innerHTML = username
-            }else{
-                h1Tag.innerHTML = "Please Let Your Name"
-            }
-        }
+        // function getLocalStorageData(){
+        //     const username = localStorage.getItem("username")
+        //     if(username){
+        //         h1Tag.innerHTML = username
+        //     }else{
+        //         h1Tag.innerHTML = "Please Let Your Name"
+        //     }
+        // }
 
-        getLocalStorageData()
+        // getLocalStorageData()
 
-        const objData = {
-            id:1,
-            firstName:"hey",
-            lastName:"Bye"
-        }
+        // const objData = {
+        //     id:1,
+        //     firstName:"hey",
+        //     lastName:"Bye"
+        // }
 
-        // to convet object to json string you have to use JSON.stringify
+        // // to convet object to json string you have to use JSON.stringify
 
-        localStorage.setItem('profleDetail', JSON.stringify(objData));
-        const profleDetail = localStorage.getItem('profleDetail')
+        // localStorage.setItem('profleDetail', JSON.stringify(objData));
+        // const profleDetail = localStorage.getItem('profleDetail')
 
-        console.log(JSON.parse(profleDetail))
+        // console.log(JSON.parse(profleDetail))
+        function fetchData() {
+        fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`)
+        .then((resp) => resp.json())
+        .then((data) => {console.log(data)
+        })
+    }
+    console.log(fetchData()) 
+
     </script>
 </body>
 
