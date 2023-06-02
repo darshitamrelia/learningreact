@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 // import React, {useEffect , useState} from 'react'
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function CocktailDetail() {
   const { id } = useParams();
   const [drinksDetails, setDrinksDetails] = useState({});
+  const navigate = useNavigate();
 
   function fetchData() {
     fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
@@ -18,6 +19,9 @@ function CocktailDetail() {
   }, []);
   return (
     <div className="container p-5">
+      <button className="btn btn-primary" onClick={() => navigate(-1)}>
+        Back
+      </button>
       <div
         style={{ backgroundColor: "#f0f0f5" }}
         className="main p-5 rounded border border-5"
