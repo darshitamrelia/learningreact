@@ -2,14 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./Style.css";
-import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./Redux/store";
 
 let htmlElement = document.getElementById("root");
 
-let root = ReactDOM.createRoot(htmlElement);
+// let root = ReactDOM.createRoot(htmlElement);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <BrowserRouter>
+  <Provider store={store}>
     <App />
-  </BrowserRouter>
+  </Provider>
 );
