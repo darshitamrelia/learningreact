@@ -1,33 +1,19 @@
 import React from "react";
+import DataTable from "./DataTable";
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import Nav from "./components/Nav";
-import Cocktail from "./pages/Cocktail";
-import CocktailDetails from "./pages/CocktailDetails";
-import PrivateRoute from "./components/PrivateRoute";
-import Login from "./pages/Login";
+import Home from "./Home";
+import Create from "./Create";
+import Update from "./Update";
 
 function App() {
   return (
-    <>
-      <Nav />
+    <div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/cocktail" element={<Cocktail />} />
-        <Route
-          path="/cocktail/:id"
-          element={
-            <PrivateRoute>
-              <CocktailDetails />
-            </PrivateRoute>
-          }
-        />
-        <Route path="/product" element={<h1>Product List</h1>} />
-        <Route path="/add-product" element={<h1>Add Product</h1>} />
-        <Route path="/edit-product/:id" element={<h1>Edit Product</h1>} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/create" element={<Create />} />
+        <Route path="/update/:id" element={<Update />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
