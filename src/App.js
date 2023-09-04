@@ -1,59 +1,33 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment } from "./Redux/cartSlice";
-import { changeName } from "./Redux/profileSlice";
-import { ChangeImage } from "./Redux/profileSlice";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Nav from "./components/Nav";
+import Cocktail from "./pages/Cocktail";
+import CocktailDetails from "./pages/CocktailDetails";
+import PrivateRoute from "./components/PrivateRoute";
+import Login from "./pages/Login";
 
 function App() {
-  const { totalItem } = useSelector((state) => state.cart);
-  const { name, Address, Image } = useSelector((state) => state.profile);
-  const dispatch = useDispatch();
-
   return (
-    <div className="container">
-      <h2>Total Item {totalItem} </h2>
-      <button
-        className="btn btn-sm btn-primary"
-        onClick={() => dispatch(increment())}
-      >
-        +
-      </button>
-      <button
-        className="btn btn-sm btn-danger"
-        onClick={() => dispatch(decrement())}
-      >
-        -
-      </button>
-
-      <hr />
-
-      <h1>User Name: {name} </h1>
-      <h3>Address : {Address}</h3>
-
-      <button
-        className="btn btn-sm btn-info"
-        onClick={() => dispatch(changeName())}
-      >
-        Change Name
-      </button>
-
-      {/* <button
-        className="btn btn-sm m-2 btn-info"
-        onClick={() => dispatch(ChangeImage())}
-      >
-        Change Image
-      </button> */}
-
-      <hr />
-
-      <button
-        className="btn btn-sm m-auto py-3 btn-info d-flex justify-content-center align-self-center"
-        onClick={() => dispatch(ChangeImage())}
-      >
-        Change Image
-      </button>
-      <img src={Image} width="100%" />
-    </div>
+    <>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cocktail" element={<Cocktail />} />
+        <Route
+          path="/cocktail/:id"
+          element={
+            <PrivateRoute>
+              <CocktailDetails />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/product" element={<h1>Product List</h1>} />
+        <Route path="/add-product" element={<h1>Add Product</h1>} />
+        <Route path="/edit-product/:id" element={<h1>Edit Product</h1>} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </>
   );
 }
 
